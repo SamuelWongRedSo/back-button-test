@@ -1,16 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, {useEffect} from 'react';
 import {Button, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 
-function Screen1({navigation}) {
+type StackParams = {
+  Screen1: undefined;
+  Screen2: undefined;
+};
+
+type Screen1Props = {
+  navigation: NativeStackNavigationProp<StackParams, 'Screen1'>;
+};
+
+function Screen1({navigation}: Screen1Props) {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Screen1</Text>
@@ -28,7 +33,11 @@ function CustomHeaderTitle() {
   return <View />;
 }
 
-function Screen2({navigation}) {
+type Screen2Props = {
+  navigation: NativeStackNavigationProp<StackParams, 'Screen2'>;
+};
+
+function Screen2({navigation}: Screen2Props) {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: CustomHeaderTitle,
@@ -56,7 +65,7 @@ function Screen2({navigation}) {
         title="remove headerBackVisible"
         onPress={() => {
           navigation.setOptions({
-            headerBackVisible: null,
+            headerBackVisible: undefined,
           });
         }}
       />
@@ -64,7 +73,7 @@ function Screen2({navigation}) {
   );
 }
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackParams>();
 
 function App(): JSX.Element {
   return (
